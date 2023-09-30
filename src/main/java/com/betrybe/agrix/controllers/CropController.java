@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,7 @@ public class CropController {
    *
    * @return the all crop
    */
+  @Secured({"ADMIN", "MANAGER"})
   @GetMapping()
   public ResponseEntity<List<CropDto>> getAllCrop() {
     List<Crop> crops = cropService.getAllCrop();
@@ -128,5 +130,5 @@ public class CropController {
 
     return ResponseEntity.ok(cropFertilizerDto);
   }
-  
+
 }

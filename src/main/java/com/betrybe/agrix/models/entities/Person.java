@@ -2,6 +2,7 @@ package com.betrybe.agrix.models.entities;
 
 
 import com.betrybe.agrix.security.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Entity
 @Table(name = "persons")
-public class Person implements UserDetails {
+public class Person implements UserDetails, GrantedAuthority {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -102,10 +103,16 @@ public class Person implements UserDetails {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of();
+    return List.of(this);
   }
 
+  @JsonIgnore
+  @Override
+  public String getAuthority() {
+    return this.getRole().name();
+  }
 }
 
