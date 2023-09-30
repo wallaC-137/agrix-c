@@ -9,17 +9,4 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public record PersonDto(Long id, String username, @JsonIgnore String password, Role role) {
 
-  /**
-   * To person.
-   *
-   * @return the person
-   */
-  public Person toPerson() {
-    Person person = new Person();
-    person.setUsername(username);
-    person.setPassword(password);
-    person.setRole(role);
-    return person;
-
-  }
 }

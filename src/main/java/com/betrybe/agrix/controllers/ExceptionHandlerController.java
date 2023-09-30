@@ -3,6 +3,7 @@ package com.betrybe.agrix.controllers;
 import com.betrybe.agrix.exception.CropNotFoundException;
 import com.betrybe.agrix.exception.FarmNotFoundException;
 import com.betrybe.agrix.exception.FertilizerNotFoundException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,5 +43,16 @@ public class ExceptionHandlerController {
   @ExceptionHandler(FertilizerNotFoundException.class)
   public ResponseEntity<String> handlerFertilizerNotFound() {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fertilizante não encontrado!");
+  }
+
+  /**
+   * Handler sql integrity constraint violation exception response entity.
+   *
+   * @return the response entity
+   */
+  @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+  public ResponseEntity<String> handlerSqlIntegrityConstraintViolationException() {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body("Nome de usuário já cadastrado!");
   }
 }
