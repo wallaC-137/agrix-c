@@ -3,6 +3,7 @@ package com.betrybe.agrix.controllers;
 import com.betrybe.agrix.exception.CropNotFoundException;
 import com.betrybe.agrix.exception.FarmNotFoundException;
 import com.betrybe.agrix.exception.FertilizerNotFoundException;
+import com.betrybe.agrix.exception.PersonNotFoundException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,5 +55,15 @@ public class ExceptionHandlerController {
   public ResponseEntity<String> handlerSqlIntegrityConstraintViolationException() {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body("Nome de usuário já cadastrado!");
+  }
+
+  /**
+   * Handler person not found response entity.
+   *
+   * @return the response entity
+   */
+  @ExceptionHandler(PersonNotFoundException.class)
+  public ResponseEntity<String> handlerPersonNotFound() {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada!");
   }
 }
